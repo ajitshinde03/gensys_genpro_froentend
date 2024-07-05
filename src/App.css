@@ -11,10 +11,18 @@ body {
   line-height: 1px;
   font-size: 20px;
 }
+.user-icon {
+  font-size: 270%;
+  color: #9e9ea4;
+}
 .icon_header {
   vertical-align: middle;
   line-height: 1px;
   font-size: 26px;
+}
+.icon2 {
+  font-size: 20px;
+  color: #461e96;
 }
 .icon,
 .icon_header {
@@ -114,14 +122,16 @@ body {
 .sidebar-responsive {
   display: inline !important;
   position: absolute;
-  /*
-    we want the z-index of the sidebar higher so that
-    the charts are not showing over the sidebar 
-    on small screens
-  */
   z-index: 12 !important;
 }
-
+.sider-bottom {
+  margin-top: 250%;
+  margin-left: 20px;
+}
+.sidebar-end {
+  text-decoration: none !important;
+  color: #ffffff;
+}
 /* End Sidebar  */
 
 /* Main  */
@@ -129,7 +139,6 @@ body {
   grid-area: main;
   overflow-y: auto;
   padding: 20px 20px;
-  color: rgba(255, 255, 255, 0.95);
 }
 
 .main-title {
@@ -174,4 +183,67 @@ body {
   .hedaer-left {
     display: none;
   }
+}
+/*cancel button******/
+.form-end {
+  color: #461e96 !important;
+  border-color: #461e96 !important;
+  margin-top: 10px;
+  margin-left: 20px;
+}
+.Modal-button {
+  background-color: #461e96 !important;
+  font-size: 17px !important;
+  /* margin-inline-end: 47px; */
+}
+/* Model start */
+/*.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: white;
+  height: 150px;
+  width: 240px;
+  margin: auto;
+  padding: 2%;
+  border-radius: 10px;
+  box-shadow: 2px 2px black;
+} */
+.modal-title {
+  color: #461e96 !important;
+}
+.modal-content {
+  margin-top: 101px;
+  height: auto;
+}
+/* .custom-button {
+  background-color: green;
+  color: white;
+  border: none;
+} */
+.btn-primary {
+  margin-top: 10px;
+  background-color: #461e96 !important;
+  border-color: #461e96 !important;
+  color: "";
+}
+.cornerview {
+  justify-content: end;
+}
+.custom-dropdown-item {
+  text-decoration: none !important;
+  color: #461e96;
+  font-size: 23px !important;
+  font-weight: 500;
+}
+.end-button {
+  justify-content: space-between !important;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import { BsList } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { FaCircle } from "react-icons/fa";
 
 function Sidebar() {
   return (
