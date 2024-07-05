@@ -184,6 +184,10 @@ body {
     display: none;
   }
 }
+
+.table .thead-light  th {
+  background-color: #dddbf7;
+}
 /*cancel button******/
 .form-end {
   color: #461e96 !important;

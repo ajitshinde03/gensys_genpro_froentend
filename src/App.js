@@ -7,6 +7,7 @@ import {
 import Header from './pages/header';
 import Sidebar from './pages/sidebar';
 import Dashboard from './pages/dashboard';
+import MyView from './pages/myView';
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/requests" element={<MyView />} />
         </Routes>
       </Router>
     </div>
