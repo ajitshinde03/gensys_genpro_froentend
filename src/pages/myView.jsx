@@ -7,7 +7,7 @@ import { GoCheck } from "react-icons/go";
 
 const MyView = () => {
   return (
-    <div className="container m-4">
+    <div className="main-container m-4">
       <h6 className="mt-4">Last Updated : 10:00:00 AM</h6>
       <h2>All Request</h2>
       <div className="d-flex my-4" style={{ width: "72rem" }}>
