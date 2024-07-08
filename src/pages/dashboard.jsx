@@ -3,9 +3,16 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
-import Dropdown from "react-bootstrap/Dropdown";
+import {
+  EnvironmentData,
+  RegionData,
+  CatlogData,
+  SchemaData,
+  TableData,
+  TargetData,
+} from "../pages/modalData";
 
-const Dashboard = () => {
+const Dashboard = ({ options, onSelect }) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -52,46 +59,61 @@ const Dashboard = () => {
               </Form.Group>
               {/********* Drop Down ***********/}
               <Form.Label className="mt-3">Environment</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select
+                arial-label="Environment example"
+                onChange={onSelect}
+              >
                 <option>-select-</option>
-                <option>Environment 1</option>
-                <option>Environment 2</option>
-                <option>Environment 3</option>
+                {EnvironmentData.data.map((option) => (
+                  <option key={option.id} value={option.environment_name}>
+                    {option.environment_desc}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label className="mt-3">Region</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select arial-label="Region example">
                 <option>-select-</option>
-                <option>Region 1</option>
-                <option>Region 2</option>
-                <option>Region 3</option>
+                {RegionData.data.map((option) => (
+                  <option key={option.id} value={option.region_name}>
+                    {option.region_desc}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label className="mt-3">Source Catalog</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select arial-label="Catalog example">
                 <option>-select-</option>
-                <option>Catalog 1</option>
-                <option>Catalog 2</option>
-                <option>Catalog 3</option>
+                {CatlogData.data.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.catelog_name}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label className="mt-3"> Schema</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select arial-label="Schema example">
                 <option>-select-</option>
-                <option>Schema 1</option>
-                <option>Schema 2</option>
-                <option>Schema 3</option>
+                {SchemaData.data.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.schema_name}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label className="mt-3">Table</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select arial-label="Table example">
                 <option>-select-</option>
-                <option>Table 1</option>
-                <option>Table 2</option>
-                <option>Table 3</option>
+                {TableData.data.map((option) => (
+                  <option key={option.id} value={option.id}>
+                    {option.table_name}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Label className="mt-3">Target Schema</Form.Label>
-              <Form.Select arial-label="Dropdown example">
+              <Form.Select arial-label="Target example">
                 <option>-select-</option>
-                <option>Schema 1</option>
-                <option>Schema 2</option>
-                <option>Schema 3</option>
+                {TargetData.data.map((option) => (
+                  <option key={option.id} value={option.catelog_name}>
+                    {option.catelog_name}
+                  </option>
+                ))}
               </Form.Select>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label> Target View</Form.Label>
