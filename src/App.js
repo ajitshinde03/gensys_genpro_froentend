@@ -7,7 +7,7 @@ import {
 import Header from './pages/header';
 import Sidebar from './pages/sidebar';
 import Dashboard from './pages/dashboard';
-import MyView from './pages/myView';
+import AllRequest from './pages/allRequest';
 
 const App = () => {
   return (
@@ -17,7 +17,7 @@ const App = () => {
         <Sidebar />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/requests" element={<MyView />} />
+          <Route path="/requests" element={<AllRequest />} />
         </Routes>
       </Router>
     </div>

@@ -1,18 +1,41 @@
 import React from "react";
 import { BsSearch, BsInfoCircle } from "react-icons/bs";
-import { IoIosMenu } from "react-icons/io";
-import { IoMdTime } from "react-icons/io";
-import { RxCross1 } from "react-icons/rx";
+import { IoIosMenu,IoMdTime } from "react-icons/io";
+import { RxCross2  } from "react-icons/rx";
 import { GoCheck } from "react-icons/go";
+import "./allRequest.css";
 
+
+const request_counts = {
+  "allReuests": "100",
+  "pending": "30",
+  "approved": "30",
+  "rejected": "40"
+
+}
+// const request_Data = [{
+//   {"target_view_name": "Finance",
+//     "target_schema_name": "b_ecc",
+//     "catlog": "adh_hh_d_dev",
+//     "schema": "b-ecc",
+//     "table": "",
+//     // "environment":   
+// }]
+const approve =() =>{
+  alert("Approved button clicked")
+}
+const rejected =() =>{
+  alert("Rejected button clicked!!")
+}
 const MyView = () => {
   return (
     <div className="container m-4">
-      <h6 className="mt-4">Last Updated : 10:00:00 AM</h6>
+      
+      <h6 className="mt-2 last_update">Last Updated : 10:00:00 AM</h6>
       <h2>All Request</h2>
       <div className="d-flex my-4" style={{ width: "72rem" }}>
         <input
-          class="form-control"
+          class="search-bar form-control"
           type="search"
           placeholder="Search"
           aria-label="Search"
@@ -24,37 +47,37 @@ const MyView = () => {
 
       <div className="ml-1 row">
         <div class="col-md-8 col-md-8 card">
-          <div class="card-body d-flex">
-            <div className="mx-4">
+          <div class="card-body d-flex row">
+            <div className=" col-md-3">
               <span className="d-flex">
                 <IoIosMenu className="icon" />
-                <h5>100</h5>
+                <h5 className="request_count ml-2">{request_counts.allReuests}</h5>
               </span>
               <h6>All Request</h6>
             </div>
 
-            <div className="mx-4">
+            <div className=" col-md-3">
               <span className="d-flex">
-                <IoMdTime className="icon" />
-                <h5>100</h5>
+                <IoMdTime className="icon pending_color" />
+                <h5 className="request_count ml-2">{request_counts.pending}</h5>
               </span>
-              <h6>Pending</h6>
+              <h6 className="pending_color">Pending</h6>
             </div>
 
-            <div className="mx-4">
+            <div className=" col-md-3">
               <span className="d-flex">
-                <GoCheck className="icon" />
-                <h5>100</h5>
+                <GoCheck className="icon approved_color" />
+                <h5 className="request_count ml-2">{request_counts.approved}</h5>
               </span>
-              <h6>Approved</h6>
+              <h6 className="approved_color">Approved</h6>
             </div>
 
-            <div className="mx-4">
+            <div className=" col-md-3">
               <span className="d-flex">
-                <RxCross1 className="icon" />
-                <h5>100</h5>
+                <RxCross2  className="icon rejected_color" />
+                <h5 className="request_count ml-2">{request_counts.rejected }</h5>
               </span>
-              <h6>Rejected</h6>
+              <h6 className="rejected_color">Rejected</h6>
             </div>
           </div>
         </div>
@@ -127,11 +150,11 @@ const MyView = () => {
             <td>@mdo</td>
             <td>@mdo</td>
             <td className="d-flex">
-              <button type="button" class="btn btn-success m-2">
+              <button onClick={approve} type="button" class="btn btn-success m-2">
                 <GoCheck className="icon" />
               </button>
-              <button type="button" class="btn btn-danger m-2">
-                <RxCross1 className="icon" />
+              <button onClick={rejected} type="button" class="btn btn-danger m-2">
+                <RxCross2  className="icon" />
               </button>
             </td>
           </tr>

@@ -251,3 +251,9 @@ body {
 .end-button {
   justify-content: space-between !important;
 }
+.search-bar{
+  margin-top: 0.8rem;
+}
+.request_count{
+  line-height: 0.8;
+}

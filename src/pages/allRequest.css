@@ -1,0 +1,12 @@
+.pending_color{
+    color: #0073BE;
+}
+.approved_color{
+    color: #007F50;
+}
+.rejected_color{
+    color: #E22F00;
+}
+.last_update{
+    color: #6E6E6E;
+}
