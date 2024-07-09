@@ -254,3 +254,36 @@ body {
 .action-buttons {
   justify-content: space-between;
 }
+.reject-reason-text {
+  font-weight: 700;
+}
+.reject-cancel-button {
+  text-decoration: none !important;
+  color: #461e96 !important;
+  font-weight: 700 !important;
+}
+.reject-alert {
+  margin-bottom: 0px !important;
+  padding: 10px !important;
+}
+.reject-alert .btn-close {
+  padding: 1rem !important;
+}
+.reject-alert p {
+  margin-bottom: 0px !important;
+}
+.reject-alert-text {
+  color: #e23001;
+  font-weight: 700;
+}
+.approve-alert-text {
+  color: #0e7710;
+  font-weight: 700;
+}
+.all-request-report {
+  margin-left: 0rem !important;
+}
+.pagination-position {
+  justify-content: flex-end !important;
+  margin-bottom: 2px !important;
+}

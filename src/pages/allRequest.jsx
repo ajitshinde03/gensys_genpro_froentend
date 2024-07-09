@@ -6,6 +6,7 @@ import { GoCheck } from "react-icons/go";
 import { TbClock } from "react-icons/tb";
 import "./allRequest.css";
 import Modal from "react-bootstrap/Modal";
+import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
@@ -35,9 +36,27 @@ const rejected = () => {
 };
 const MyView = () => {
   const [modalShow, setModalShow] = useState(false);
-
+  const [alertShow, setAlertShow] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+  const [alertSucessClass, setAlertSuccessClass] =
+    useState("reject-alert-text");
+  const [alertVariant, setAlertVarient] = useState("danger");
   const handleShow = () => setModalShow(true);
   const handleClose = () => setModalShow(false);
+
+  function handleApproveClick() {
+    setAlertMessage("The View has been Approved Successfully!");
+    setAlertVarient("success");
+    setAlertSuccessClass("approve-alert-text");
+    setAlertShow(true);
+  }
+  function handleRejectClick() {
+    setAlertMessage("The View has been Rejected!");
+    setAlertVarient("danger");
+    setAlertSuccessClass("reject-alert-text");
+    setModalShow(false);
+    setAlertShow(true);
+  }
 
   // Approved Buttons
   // const status = "approved";
@@ -46,7 +65,22 @@ const MyView = () => {
   return (
     <div className="main-container m-4">
       <h6 className="mt-2 last_update">Last Updated : 10:00:00 AM</h6>
-      <h2>All Request</h2>
+      <div className="row">
+        <div className="col-lg-2 col-md-2">
+          <h2>All Request</h2>
+        </div>
+        <div className="col-lg-6 col-md-6">
+          <Alert
+            variant={alertVariant}
+            show={alertShow}
+            className={"reject-alert"}
+            onClose={() => setAlertShow(false)}
+            dismissible
+          >
+            <p className={alertSucessClass}>{alertMessage}</p>
+          </Alert>
+        </div>
+      </div>
       <div className="d-flex my-4" style={{ width: "72rem" }}>
         <input
           class="search-bar form-control"
@@ -102,7 +136,7 @@ const MyView = () => {
           </div>
         </div>
 
-        <div className="col-md-3">
+        {/* <div className="col-md-3">
           <nav aria-label="Page navigation example float-right">
             <ul class="pagination">
               <li class="page-item">
@@ -134,10 +168,44 @@ const MyView = () => {
               </li>
             </ul>
           </nav>
+        </div> */}
+      </div>
+      <div className="ml-1 row all-request-report">
+        <div className="col-md-3 offset-md-9 col-lg-3 offset-lg-9">
+          <nav aria-label="Page navigation example float-right">
+            <ul class="pagination pagination-position">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  1
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  2
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#">
+                  3
+                </a>
+              </li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
-
-      <table class="table table-responsive table-bordered my-4">
+      <table class="table table-responsive table-bordered">
         <thead class="thead-light thead-light_blue">
           <tr>
             <th scope="col">Target view name</th>
@@ -193,7 +261,7 @@ const MyView = () => {
                     <div className="d-flex action-buttons">
                       <Button
                         variant="success"
-                        // onClick={""}
+                        onClick={handleApproveClick}
                         class="btn btn-success m-2"
                       >
                         <GoCheck className="icon" />
@@ -222,20 +290,33 @@ const MyView = () => {
       >
         <Modal.Body>
           <h4 className="rej-content">
-            Are you sure you want to Reject the <br />
-            View?
+            Are you sure you want to Reject the View?
           </h4>
 
-          <h4>Rejection Reason</h4>
+          <p className="reject-reason-text">Rejection Reason</p>
           <Form>
             <Form.Group controlId="fromBasicText">
-              <Form.Control type="text" className="custom-input" />
+              <Form.Control as="textarea" rows={2} />
+            </Form.Group>
+            <Form.Group className="md-3">
+              <div className="d-flex end-button">
+                <Button
+                  variant="link"
+                  className="reject-cancel-button"
+                  onClick={handleClose}
+                >
+                  Cancel
+                </Button>
+                <Button onClick={handleRejectClick} className="Modal-button">
+                  Save
+                </Button>
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
+        {/* <Modal.Footer>
           <Button onClick={handleClose}>Close</Button>
-        </Modal.Footer>
+        </Modal.Footer> */}
       </Modal>
     </div>
   );
