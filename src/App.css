@@ -28,7 +28,10 @@ body {
 .icon_header {
   margin-right: 5px;
 }
-
+.clock-icon {
+  font-size: 15px;
+  margin-left: 3px;
+}
 .close_icon {
   color: red;
   margin-left: 30px;
@@ -225,9 +228,29 @@ body {
 .end-button {
   justify-content: space-between !important;
 }
-.search-bar{
+.search-bar {
   margin-top: 0.8rem;
 }
-.request_count{
+.request_count {
   line-height: 0.8;
+}
+.btn btn-success {
+  height: 38px;
+  margin-top: 8px;
+}
+/*All request table */
+
+.custom-button-success {
+  background-color: #95e0a6 !important;
+  border-color: #95e0a6 !important;
+}
+.custom-button-danger {
+  background-color: #feefeb !important;
+  border-color: #feefeb !important;
+}
+.rej-content {
+  color: #461e96;
+}
+.action-buttons {
+  justify-content: space-between;
 }
