@@ -2,6 +2,25 @@ import { api } from "./configs/axiosConfigs";
 import { defineCancelApiObject } from "./configs/axiosUtils";
 
 export const ViewApi = {
+  getType: async function (cancel = false) {
+    try {
+      const response = await api.request({
+        url: `/type`,
+        method: "GET",
+        // retrieving the signal value by using the property name
+        signal: cancel
+          ? cancelApiObject[this.get.name].handleRequestCancellation().signal
+          : undefined,
+      });
+
+      // returning the product returned by the API
+      console.log("response.data = ", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("responce error = ", error);
+    }
+  },
+
   getEnvironment: async function (cancel = false) {
     try {
       const response = await api.request({
@@ -109,7 +128,28 @@ export const ViewApi = {
       });
 
       // returning the product returned by the API
-      console.log("getTargetSchema response.data = ", response.data);
+      // console.log("getTargetSchema response.data = ", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("responce error = ", error);
+    }
+  },
+
+  createView: async function (data, cancel = false) {
+    console.log("Data = ", data)
+    try {
+      const response = await api.request({
+        url: `/create_gensys_genpro_data`,
+        method: "POST",
+        data: data,
+        // retrieving the signal value by using the property name
+        signal: cancel
+          ? cancelApiObject[this.get.name].handleRequestCancellation().signal
+          : undefined,
+      });
+
+      // returning the product returned by the API
+      // console.log("getTargetSchema response.data = ", response.data);
       return response.data;
     } catch (error) {
       console.log("responce error = ", error);
