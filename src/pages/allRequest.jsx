@@ -12,21 +12,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import { TableData } from "./tabledata";
 
-// const handleShow = () => setShow(true);
 const request_counts = {
   allReuests: "100",
   pending: "30",
   approved: "30",
   rejected: "40",
 };
-// const request_Data = [{
-//   {"target_view_name": "Finance",
-//     "target_schema_name": "b_ecc",
-//     "catlog": "adh_hh_d_dev",
-//     "schema": "b-ecc",
-//     "table": "",
-//     // "environment":
-// }]
 
 const approve = () => {
   alert("Approved button clicked");
@@ -135,40 +126,6 @@ const MyView = () => {
             </div>
           </div>
         </div>
-
-        {/* <div className="col-md-3">
-          <nav aria-label="Page navigation example float-right">
-            <ul class="pagination">
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                  <span class="sr-only">Previous</span>
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  1
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  2
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#">
-                  3
-                </a>
-              </li>
-              <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div> */}
       </div>
       <div className="ml-1 row all-request-report">
         <div className="col-md-3 offset-md-9 col-lg-3 offset-lg-9">
@@ -314,9 +271,6 @@ const MyView = () => {
             </Form.Group>
           </Form>
         </Modal.Body>
-        {/* <Modal.Footer>
-          <Button onClick={handleClose}>Close</Button>
-        </Modal.Footer> */}
       </Modal>
     </div>
   );
