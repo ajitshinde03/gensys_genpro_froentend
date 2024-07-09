@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -11,18 +11,60 @@ import {
   TableData,
   TargetData,
 } from "../pages/modalData";
+import { ViewApi } from "../apis/ViewAPI";
 
 const Dashboard = ({ options, onSelect }) => {
   const [show, setShow] = useState(false);
+  const [region, setRegion] = useState([]);
+  const [environment, setEnvironment] = useState([]);
+  const [catlog, setCatlog] = useState([]);
+  const [schema, setSchema] = useState([]);
+  const [table, setTable] = useState([]);
+  const [targetSchema, setTargetSchema] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const handleSubmit =() =>{
+    setShow(false);
+  }
   const [selectedOption, setSelectedOption] = useState("GenSys");
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
+  useEffect(() => {
+    ViewApi.getRegion().then((region) => {
+      // response handling
+      setRegion(region);
+    });
+    ViewApi.getEnvironment().then((env) => {
+      // response handling
+      setEnvironment(env);
+    });
+
+    ViewApi.getCatlog().then((catlog) => {
+      // response handling
+      setCatlog(catlog);
+    });
+    
+    ViewApi.getSchema().then((schema) => {
+      // response handling
+      setSchema(schema);
+    });
+    ViewApi.getTable().then((table) => {
+      // response handling
+      setTable(table);
+    });
+    
+    ViewApi.getTargetSchema().then((targetSchema) => {
+      // response handling
+      setTargetSchema(targetSchema);
+    });
+
+
+  }, []);
+  console.log("region = ", region)
   return (
     <>
       <div class="main-container">
@@ -64,7 +106,7 @@ const Dashboard = ({ options, onSelect }) => {
                 onChange={onSelect}
               >
                 <option>-select-</option>
-                {EnvironmentData.data.map((option) => (
+                {environment.data?.map((option) => (
                   <option key={option.id} value={option.environment_name}>
                     {option.environment_desc}
                   </option>
@@ -73,7 +115,7 @@ const Dashboard = ({ options, onSelect }) => {
               <Form.Label className="mt-3">Region</Form.Label>
               <Form.Select arial-label="Region example">
                 <option>-select-</option>
-                {RegionData.data.map((option) => (
+                {region.data?.map((option) => (
                   <option key={option.id} value={option.region_name}>
                     {option.region_desc}
                   </option>
@@ -82,7 +124,7 @@ const Dashboard = ({ options, onSelect }) => {
               <Form.Label className="mt-3">Source Catalog</Form.Label>
               <Form.Select arial-label="Catalog example">
                 <option>-select-</option>
-                {CatlogData.data.map((option) => (
+                {catlog.data?.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.catelog_name}
                   </option>
@@ -91,7 +133,7 @@ const Dashboard = ({ options, onSelect }) => {
               <Form.Label className="mt-3"> Schema</Form.Label>
               <Form.Select arial-label="Schema example">
                 <option>-select-</option>
-                {SchemaData.data.map((option) => (
+                {schema.data?.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.schema_name}
                   </option>
@@ -100,7 +142,7 @@ const Dashboard = ({ options, onSelect }) => {
               <Form.Label className="mt-3">Table</Form.Label>
               <Form.Select arial-label="Table example">
                 <option>-select-</option>
-                {TableData.data.map((option) => (
+                {table.data?.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.table_name}
                   </option>
@@ -109,9 +151,9 @@ const Dashboard = ({ options, onSelect }) => {
               <Form.Label className="mt-3">Target Schema</Form.Label>
               <Form.Select arial-label="Target example">
                 <option>-select-</option>
-                {TargetData.data.map((option) => (
-                  <option key={option.id} value={option.catelog_name}>
-                    {option.catelog_name}
+                {targetSchema.data?.map((option) => (
+                  <option key={option.id} value={option.schema_name}>
+                    {option.schema_name}
                   </option>
                 ))}
               </Form.Select>
@@ -128,7 +170,7 @@ const Dashboard = ({ options, onSelect }) => {
                   >
                     Cancel
                   </Button>
-                  <Button onClick={handleClose} className="Modal-button">
+                  <Button onClick={handleSubmit} className="Modal-button">
                     Submit
                   </Button>
                 </div>
