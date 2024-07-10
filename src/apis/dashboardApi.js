@@ -1,7 +1,7 @@
 import { api } from "./configs/axiosConfigs";
 import { defineCancelApiObject } from "./configs/axiosUtils";
 
-export const ViewApi = {
+export const DashboardApi = {
   getType: async function (cancel = false) {
     try {
       const response = await api.request({
@@ -157,4 +157,4 @@ export const ViewApi = {
   },
 };
 
-const cancelApiObject = defineCancelApiObject(ViewApi);
+const cancelApiObject = defineCancelApiObject(DashboardApi);

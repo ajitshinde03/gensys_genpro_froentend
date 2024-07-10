@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsSearch, BsInfoCircle } from "react-icons/bs";
 import { IoIosMenu, IoMdTime } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
@@ -11,13 +11,9 @@ import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Form from "react-bootstrap/Form";
 import { TableData } from "./tabledata";
+import { AllRequestApi } from "../apis/allRequestApi";
 
-const request_counts = {
-  allReuests: "100",
-  pending: "30",
-  approved: "30",
-  rejected: "40",
-};
+// let requestCounts = {};
 
 const approve = () => {
   alert("Approved button clicked");
@@ -29,29 +25,93 @@ const MyView = () => {
   const [modalShow, setModalShow] = useState(false);
   const [alertShow, setAlertShow] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [alertSucessClass, setAlertSuccessClass] =
-    useState("reject-alert-text");
+  const [alertSucessClass, setAlertSuccessClass] = useState("reject-alert-text");
   const [alertVariant, setAlertVarient] = useState("danger");
-  const handleShow = () => setModalShow(true);
-  const handleClose = () => setModalShow(false);
+  const [requestCounts, setRequestCounts] = useState({});
+  const [requestData, setRequestData] = useState({});
+  const [rejectid, setRejectId] = useState("");
+  const [formData, setFormData] = useState({});
 
-  function handleApproveClick() {
-    setAlertMessage("The View has been Approved Successfully!");
-    setAlertVarient("success");
-    setAlertSuccessClass("approve-alert-text");
-    setAlertShow(true);
+
+  // const handleShow = () => setModalShow(true);
+  const handleClose = () => {
+    setModalShow(false);
+    setRejectId("");
+
+  }
+  const handleApproveClick = (id, status, reason) => {
+    console.log("handleApproveClick===========")
+    AllRequestApi.updateStatus(id, status, reason).then((respponce) => {
+      // response handling
+      // setRequestCounts(requestCounts.data);
+      console.log("respponce = = = ", respponce);
+      if (respponce.status === "success") {
+        setAlertMessage("The View has been Approved Successfully!");
+        setAlertVarient("success");
+        setAlertSuccessClass("approve-alert-text");
+        setAlertShow(true);
+        callApi();
+      }
+
+    });
+
+  }
+
+  const handleRejectPopUp = (id) => {
+    setModalShow(true);
+    setRejectId(id)
   }
   function handleRejectClick() {
-    setAlertMessage("The View has been Rejected!");
-    setAlertVarient("danger");
-    setAlertSuccessClass("reject-alert-text");
-    setModalShow(false);
-    setAlertShow(true);
+    AllRequestApi.updateStatus(rejectid, "Rejected", formData["reject_reason"]).then((respponce) => {
+      // response handling
+      // setRequestCounts(requestCounts.data);
+      console.log("respponce = = = ", respponce);
+      if (respponce.status === "success") {
+        setAlertMessage("The View has been Rejected!");
+        setAlertVarient("danger");
+        setAlertSuccessClass("reject-alert-text");
+        setModalShow(false);
+        setAlertShow(true);
+      }
+    });
+    setRejectId("");
+    callApi();
   }
 
+  const handleChange = (event) => {
+    console.log("event = ", event.target.name);
+    console.log("event = ", event.target.value);
+
+    formData[event.target.name] = event.target.value
+    setFormData(formData)
+    console.log("formData = ", formData)
+
+  };
   // Approved Buttons
   // const status = "approved";
   // let successButtonVariant;
+  const callApi = async () => {
+    const responce = await Promise.all([AllRequestApi.getRequestCount(), AllRequestApi.getRequestData()])
+    // console.log("responce = ",responce)
+    setRequestCounts(responce[0].data);
+    setRequestData(responce[1])
+
+  }
+  useEffect(() => {
+    callApi();
+    // AllRequestApi.getRequestCount().then((requestCounts) => {
+    //   // response handling
+    //   setRequestCounts(requestCounts.data)
+    // });
+    // AllRequestApi.getRequestData().then((requestData) => {
+    //   // response handling
+    //   setRequestData(requestData)
+    // });
+
+    // Promise.all([AllRequestApi.getRequestCount(), AllRequestApi.getRequestData()] )
+
+  }, []);
+  // console.log("requestCounts = = =", requestCounts)
 
   return (
     <div className="main-container m-4">
@@ -91,7 +151,7 @@ const MyView = () => {
               <span className="d-flex">
                 <IoIosMenu className="icon" />
                 <h5 className="request_count ml-2">
-                  {request_counts.allReuests}
+                  {requestCounts.all_count}
                 </h5>
               </span>
               <h6>All Request</h6>
@@ -100,7 +160,7 @@ const MyView = () => {
             <div className=" col-md-3">
               <span className="d-flex">
                 <IoMdTime className="icon pending_color" />
-                <h5 className="request_count ml-2">{request_counts.pending}</h5>
+                <h5 className="request_count ml-2">{requestCounts.pending_count}</h5>
               </span>
               <h6 className="pending_color">Pending</h6>
             </div>
@@ -109,7 +169,7 @@ const MyView = () => {
               <span className="d-flex">
                 <GoCheck className="icon approved_color" />
                 <h5 className="request_count ml-2">
-                  {request_counts.approved}
+                  {requestCounts.approved_count}
                 </h5>
               </span>
               <h6 className="approved_color">Approved</h6>
@@ -119,7 +179,7 @@ const MyView = () => {
               <span className="d-flex">
                 <RxCross2 className="icon rejected_color" />
                 <h5 className="request_count ml-2">
-                  {request_counts.rejected}
+                  {requestCounts.rejected_count}
                 </h5>
               </span>
               <h6 className="rejected_color">Rejected</h6>
@@ -162,6 +222,7 @@ const MyView = () => {
           </nav>
         </div>
       </div>
+
       <table class="table table-responsive table-bordered">
         <thead class="thead-light thead-light_blue">
           <tr>
@@ -180,7 +241,7 @@ const MyView = () => {
           </tr>
         </thead>
         <tbody>
-          {TableData.data.map((data) => {
+          {requestData.data?.map((data) => {
             return (
               <tr>
                 <th scope="row">{data.view_name}</th>
@@ -193,7 +254,8 @@ const MyView = () => {
                 <td>{data.region_name}</td>
                 <td>{data.created_date}</td>
                 <td>{data.updated_date}</td>
-                <td>{data.Approved_by}</td>
+                {/* <td>{data.Approved_by}</td> */}
+                <td>Admin</td>
                 <td>
                   {data.status === "Approved" && (
                     <Button
@@ -218,14 +280,15 @@ const MyView = () => {
                     <div className="d-flex action-buttons">
                       <Button
                         variant="success"
-                        onClick={handleApproveClick}
+                        onClick={() => handleApproveClick(data.id, "Approved", "")}
                         class="btn btn-success m-2"
                       >
                         <GoCheck className="icon" />
                       </Button>{" "}
                       <Button
                         variant="danger"
-                        onClick={handleShow}
+                        // onClick={()=>handleShow()}
+                        onClick={() => handleRejectPopUp(data.id)}
                         class="btn btn-danger m-2"
                       >
                         <RxCross2 className="icon" />
@@ -253,7 +316,7 @@ const MyView = () => {
           <p className="reject-reason-text">Rejection Reason</p>
           <Form>
             <Form.Group controlId="fromBasicText">
-              <Form.Control as="textarea" rows={2} />
+              <Form.Control as="textarea" rows={2} name="reject_reason" onChange={handleChange} />
             </Form.Group>
             <Form.Group className="md-3">
               <div className="d-flex end-button">

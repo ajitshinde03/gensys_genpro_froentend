@@ -11,7 +11,7 @@ import Form from "react-bootstrap/Form";
 //   TableData,
 //   TargetData,
 // } from "../pages/modalData";
-import { ViewApi } from "../apis/ViewAPI";
+import { DashboardApi } from "../apis/dashboardApi";
 
 const Dashboard = ({ options, onSelect }) => {
 
@@ -34,7 +34,7 @@ const Dashboard = ({ options, onSelect }) => {
   const handleSubmit = () => {
     setShow(false);
     //call create view api
-    // ViewApi.createView({
+    // DashboardApi.createView({
     //   "type_id": 2,
     //   "env_id": 1,
     //   "region_id": 1,
@@ -44,7 +44,7 @@ const Dashboard = ({ options, onSelect }) => {
     //   "target_schema_id": 1,
     //   "view_name": "creating the nww view 123"
     // });
-    ViewApi.createView(formData)
+    DashboardApi.createView(formData)
   }
   const [selectedOption, setSelectedOption] = useState('1');
 
@@ -62,34 +62,34 @@ const Dashboard = ({ options, onSelect }) => {
   useEffect(() => {
     formData["type_id"] = "1"
     setFormData(formData)
-    ViewApi.getRegion().then((region) => {
+    DashboardApi.getRegion().then((region) => {
       // response handling
       setRegion(region);
     });
-    ViewApi.getEnvironment().then((env) => {
+    DashboardApi.getEnvironment().then((env) => {
       // response handling
       setEnvironment(env);
     });
 
-    ViewApi.getCatlog().then((catlog) => {
+    DashboardApi.getCatlog().then((catlog) => {
       // response handling
       setCatlog(catlog);
     });
 
-    ViewApi.getSchema().then((schema) => {
+    DashboardApi.getSchema().then((schema) => {
       // response handling
       setSchema(schema);
     });
-    ViewApi.getTable().then((table) => {
+    DashboardApi.getTable().then((table) => {
       // response handling
       setTable(table);
     });
 
-    ViewApi.getTargetSchema().then((targetSchema) => {
+    DashboardApi.getTargetSchema().then((targetSchema) => {
       // response handling
       setTargetSchema(targetSchema);
     });
-    ViewApi.getType().then((typeData) => {
+    DashboardApi.getType().then((typeData) => {
       // response handling
       setTypeData(typeData);
     });
