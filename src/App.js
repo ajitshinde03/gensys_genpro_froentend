@@ -8,6 +8,7 @@ import Header from './pages/header';
 import Sidebar from './pages/sidebar';
 import Dashboard from './pages/dashboard';
 import AllRequest from './pages/allRequest';
+import AllViews from "./pages/allViews";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/requests" element={<AllRequest />} />
+          <Route path="/allViews" element={<AllViews />} />
         </Routes>
       </Router>
     </div>

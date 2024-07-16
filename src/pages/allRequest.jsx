@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Table from "react-bootstrap/Table";
 import { BsSearch, BsInfoCircle } from "react-icons/bs";
 import { IoIosMenu, IoMdTime } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
@@ -25,22 +26,21 @@ const MyView = () => {
   const [modalShow, setModalShow] = useState(false);
   const [alertShow, setAlertShow] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
-  const [alertSucessClass, setAlertSuccessClass] = useState("reject-alert-text");
+  const [alertSucessClass, setAlertSuccessClass] =
+    useState("reject-alert-text");
   const [alertVariant, setAlertVarient] = useState("danger");
   const [requestCounts, setRequestCounts] = useState({});
   const [requestData, setRequestData] = useState({});
   const [rejectid, setRejectId] = useState("");
   const [formData, setFormData] = useState({});
 
-
   // const handleShow = () => setModalShow(true);
   const handleClose = () => {
     setModalShow(false);
     setRejectId("");
-
-  }
+  };
   const handleApproveClick = (id, status, reason) => {
-    console.log("handleApproveClick===========")
+    console.log("handleApproveClick===========");
     AllRequestApi.updateStatus(id, status, reason).then((respponce) => {
       // response handling
       // setRequestCounts(requestCounts.data);
@@ -52,17 +52,19 @@ const MyView = () => {
         setAlertShow(true);
         callApi();
       }
-
     });
-
-  }
+  };
 
   const handleRejectPopUp = (id) => {
     setModalShow(true);
-    setRejectId(id)
-  }
+    setRejectId(id);
+  };
   function handleRejectClick() {
-    AllRequestApi.updateStatus(rejectid, "Rejected", formData["reject_reason"]).then((respponce) => {
+    AllRequestApi.updateStatus(
+      rejectid,
+      "Rejected",
+      formData["reject_reason"]
+    ).then((respponce) => {
       // response handling
       // setRequestCounts(requestCounts.data);
       console.log("respponce = = = ", respponce);
@@ -82,21 +84,22 @@ const MyView = () => {
     console.log("event = ", event.target.name);
     console.log("event = ", event.target.value);
 
-    formData[event.target.name] = event.target.value
-    setFormData(formData)
-    console.log("formData = ", formData)
-
+    formData[event.target.name] = event.target.value;
+    setFormData(formData);
+    console.log("formData = ", formData);
   };
   // Approved Buttons
   // const status = "approved";
   // let successButtonVariant;
   const callApi = async () => {
-    const responce = await Promise.all([AllRequestApi.getRequestCount(), AllRequestApi.getRequestData()])
+    const responce = await Promise.all([
+      AllRequestApi.getRequestCount(),
+      AllRequestApi.getRequestData(),
+    ]);
     // console.log("responce = ",responce)
     setRequestCounts(responce[0].data);
-    setRequestData(responce[1])
-
-  }
+    setRequestData(responce[1]);
+  };
   useEffect(() => {
     callApi();
     // AllRequestApi.getRequestCount().then((requestCounts) => {
@@ -109,7 +112,6 @@ const MyView = () => {
     // });
 
     // Promise.all([AllRequestApi.getRequestCount(), AllRequestApi.getRequestData()] )
-
   }, []);
   // console.log("requestCounts = = =", requestCounts)
 
@@ -160,7 +162,9 @@ const MyView = () => {
             <div className=" col-md-3">
               <span className="d-flex">
                 <IoMdTime className="icon pending_color" />
-                <h5 className="request_count ml-2">{requestCounts.pending_count}</h5>
+                <h5 className="request_count ml-2">
+                  {requestCounts.pending_count}
+                </h5>
               </span>
               <h6 className="pending_color">Pending</h6>
             </div>
@@ -223,7 +227,7 @@ const MyView = () => {
         </div>
       </div>
 
-      <table class="table table-responsive table-bordered">
+      <Table class="table " variant="bordered" responsive>
         <thead class="thead-light thead-light_blue">
           <tr>
             <th scope="col">Target view name</th>
@@ -280,8 +284,11 @@ const MyView = () => {
                     <div className="d-flex action-buttons">
                       <Button
                         variant="success"
-                        onClick={() => handleApproveClick(data.id, "Approved", "")}
+                        onClick={() =>
+                          handleApproveClick(data.id, "Approved", "")
+                        }
                         class="btn btn-success m-2"
+                        disabled
                       >
                         <GoCheck className="icon" />
                       </Button>{" "}
@@ -300,7 +307,7 @@ const MyView = () => {
             );
           })}
         </tbody>
-      </table>
+      </Table>
       <Modal
         show={modalShow}
         onHide={handleClose}
@@ -316,7 +323,12 @@ const MyView = () => {
           <p className="reject-reason-text">Rejection Reason</p>
           <Form>
             <Form.Group controlId="fromBasicText">
-              <Form.Control as="textarea" rows={2} name="reject_reason" onChange={handleChange} />
+              <Form.Control
+                as="textarea"
+                rows={2}
+                name="reject_reason"
+                onChange={handleChange}
+              />
             </Form.Group>
             <Form.Group className="md-3">
               <div className="d-flex end-button">

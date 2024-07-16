@@ -11,13 +11,24 @@ function Sidebar() {
       </div>
       <ul className="sidebar-list">
         <li className="sidebar-list-item">
-          <Link to="/"><BsList className="icon" /> Dashboard</Link>
+          <Link to="/">
+            <BsList className="icon" /> Dashboard
+          </Link>
         </li>
 
         <li className="sidebar-list-item">
-          <Link to="/requests"><BsList className="icon" />All Requests</Link>
+          <Link to="/requests">
+            <BsList className="icon" />
+            All Requests
+          </Link>
         </li>
-        
+
+        <li className="sidebar-list-item">
+          <Link to="/allViews">
+            <BsList className="icon" />
+            All Views
+          </Link>
+        </li>
       </ul>
     </aside>
   );
