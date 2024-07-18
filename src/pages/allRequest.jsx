@@ -288,7 +288,6 @@ const MyView = () => {
                           handleApproveClick(data.id, "Approved", "")
                         }
                         class="btn btn-success m-2"
-                        disabled
                       >
                         <GoCheck className="icon" />
                       </Button>{" "}

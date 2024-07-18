@@ -42,12 +42,12 @@ export const AllRequestApi = {
   updateStatus: async function (id, status, reason, cancel = false) {
     try {
       const response = await api.request({
-        url: `/${id}/my_requests`,
+        url: `/${id}/status`,
         method: "PUT",
         data: {
-            "status": status,
-            "reject_reason": reason
-          },
+          "status": status,
+          "reject_reason": reason
+        },
         // retrieving the signal value by using the property name
         signal: cancel
           ? cancelApiObject[this.get.name].handleRequestCancellation().signal
